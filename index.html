@@ -3,20 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Счастливый фермер</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Посадка растений</title>
+    <style>
+        #field {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            border: 1px solid green;
+            overflow: hidden;
+        }
+        .plant {
+            position: absolute;
+            bottom: 0;
+            width: 30px;
+            height: 30px;
+            background-color: green;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Счастливый фермер Илья Тобольский</h1>
-        <div class="game">
-            <div id="field"></div>
-            <button id="plantButton" class="button">Посадить картошку</button>
-            <button id="harvestButton" class="button">Собрать картошку</button>
-            <button id="plantButton2" class="button">Посадить морковку</button>
-            <p id="status"></p>
-        </div>
-    </div>
-    <script src="script.js"></script>
+
+<h1>Посадка растений</h1>
+<div id="field"></div>
+<button id="plantButton">Посадить семена</button>
+<button id="harvestButton">Собрать урожай</button>
+<p id="status">Вы еще не посадили семена!</p>
+
+<script>
+    let plantedCount = 0; // Счетчик для отслеживания количества посаженных растений
+
+    document.getElementById('plantButton').addEventListener('click', plantSeeds);
+    document.getElementById('harvestButton').addEventListener('click', harvest);
+
+    function plantSeeds() {
+        // Создание растения
+        const field = document.getElementById('field');
+        const plant = document.createElement('div');
+        plant.className = 'plant';
+        plant.style.left = `${Math.random() * 100}%`; // Случайное положение растения
+        field.appendChild(plant);
+
+        plantedCount++; // Увеличиваем счетчик
+        document.getElementById('status').innerText = `Вы посадили семена! Всего посажено растений: ${plantedCount}`;
+    }
+
+    function harvest() {
+        if (plantedCount === 0) {
+            document.getElementById('status').innerText = 'Нет урожая для сбора!';
+            return;
+        }
+
+        // Убираем все растения
+        const field = document.getElementById('field');
+        while (field.firstChild) {
+            field.removeChild(field.firstChild);
+        }
+
+        plantedCount = 0; // Сбрасываем счетчик
+        document.getElementById('status').innerText = 'Вы собрали урожай!';
+    }
+</script>
+
 </body>
 </html>
