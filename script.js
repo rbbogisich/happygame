@@ -2,6 +2,7 @@ let planted = false; // Флаг для отслеживания состоян�
 
 document.getElementById('plantButton').addEventListener('click', plantSeeds);
 document.getElementById('harvestButton').addEventListener('click', harvest);
+document.getElementById('plantButton2').addEventListener('click', plantSeeds2);
 
 function plantSeeds() {
     if (planted) {
